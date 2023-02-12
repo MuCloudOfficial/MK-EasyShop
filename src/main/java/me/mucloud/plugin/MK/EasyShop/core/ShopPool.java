@@ -17,14 +17,13 @@ import java.util.Objects;
 
 public class ShopPool {
 
-    private final Main Main;
+    private static final Main plugin = Main.getInstance();
     private final File ShopFolder;
     private final List<Shop<? extends Production>> Pool;
 
-    public ShopPool(Main main){
-        Main = main;
+    public ShopPool(){
         Pool = new ArrayList<>();
-        ShopFolder = new File(main.getDataFolder(), "Shops");
+        ShopFolder = new File(plugin.getDataFolder(), "Shops");
         if(!ShopFolder.exists() || ShopFolder.isFile()){
             ShopFolder.mkdir();
         }
@@ -44,7 +43,7 @@ public class ShopPool {
     }
 
     public int addBuyShop(String id, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
-        Shop<BuyProduction> shop = new Shop<>(Main, id, ShopType.BUY, shopName, icon, accessPermission, refreshInterval);
+        Shop<BuyProduction> shop = new Shop<>(id, ShopType.BUY, shopName, icon, accessPermission, refreshInterval);
         for(Shop<?> s : Pool){
             if(s.equals(shop)){
                 return 1;
@@ -55,7 +54,7 @@ public class ShopPool {
     }
 
     public int addSellShop(String id, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
-        Shop<SellProduction> shop = new Shop<>(Main, id, ShopType.SELL, shopName, icon, accessPermission, refreshInterval);
+        Shop<SellProduction> shop = new Shop<>(id, ShopType.SELL, shopName, icon, accessPermission, refreshInterval);
         for(Shop<?> s : Pool){
             if(s.equals(shop)){
                 return 1;

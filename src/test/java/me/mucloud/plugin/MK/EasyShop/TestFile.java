@@ -20,5 +20,13 @@ public class TestFile {
         System.out.println(l);
     }
 
+    @Test public void test2(){
+        staticClass s1 = new staticClass("q");
+        staticClass s2 = new staticClass("1");
+
+        System.out.println(s1.getName());
+        System.out.println(s2.getName());
+    }
+
 
 }

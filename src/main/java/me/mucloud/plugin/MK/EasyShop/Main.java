@@ -1,5 +1,6 @@
 package me.mucloud.plugin.MK.EasyShop;
 
+import me.mucloud.plugin.MK.EasyShop.api.IConfiguration;
 import me.mucloud.plugin.MK.EasyShop.command.CommandManager;
 import me.mucloud.plugin.MK.EasyShop.core.ShopPool;
 import me.mucloud.plugin.MK.EasyShop.internal.Configuration;
@@ -24,14 +25,11 @@ public class Main extends JavaPlugin{
 
     @Override public void onEnable() {
         plugin = this;
-
         ConsoleSender.info("MADE IN STARRY SKY.");
+
         loadMessages();
         loadConfig();
         ConsoleSender.sendConsoleMessage("§b§lMADE IN STARRY SKY.");
-        C.checkIntegrity();
-
-        C.initialize();
 
         deployShops();
         regCommands();
@@ -42,14 +40,8 @@ public class Main extends JavaPlugin{
         super.onDisable();
     }
 
-    public void onReload(){ /*TODO*/ }
-
-    public Configuration getConfiguration(){
-        return C;
-    }
-
-    public ShopPool getShopPool(){
-        return SP;
+    public void onReload(){
+        //TODO
     }
 
     public void requestHookPlugins(){
@@ -67,23 +59,23 @@ public class Main extends JavaPlugin{
         }
     }
 
-    public void loadConfig(){
+    private void loadConfig(){
         C = new Configuration(this);
     }
 
-    public void loadMessages(){
+    private void loadMessages(){
         try {
-            new Messages(this).loadMessage();
+            new Messages().loadMessage();
         } catch (IOException | InvalidConfigurationException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void deployShops(){
-        new ShopPool(this);
+    private void deployShops(){
+        new ShopPool();
     }
 
-    public void regCommands(){
+    private void regCommands(){
         CM = new CommandManager(C);
         Objects.requireNonNull(getCommand("mkes")).setExecutor(CM);
         Objects.requireNonNull(getCommand("mkes")).setTabCompleter(CM);
@@ -95,6 +87,14 @@ public class Main extends JavaPlugin{
 
     public static Main getInstance(){
         return plugin;
+    }
+
+    public IConfiguration getConfiguration(){
+        return C;
+    }
+
+    public ShopPool getShopPool(){
+        return SP;
     }
 
 }

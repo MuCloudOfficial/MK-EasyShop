@@ -25,13 +25,12 @@ public class Shop<T extends Production> implements IShop<T> {
     private ShopPool.ShopType ShopType;
     private Material ICON;
     private String AccessPermission;
-
     private ShopRefreshTask RefreshTask;
 
     private ShopGUI GUI;
     private final List<T> ProductionList;
 
-    Shop(Main m, String id, ShopPool.ShopType shopType, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
+    Shop(String id, ShopPool.ShopType shopType, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
         ID = id;
         ShopType = shopType;
         ShopName = shopName;
@@ -39,7 +38,7 @@ public class Shop<T extends Production> implements IShop<T> {
         AccessPermission = accessPermission;
         ProductionList = new ArrayList<>();
         if(refreshInterval != -1){
-            RefreshTask = new ShopRefreshTask(m, this);
+            RefreshTask = new ShopRefreshTask(this);
         }
 
         GUI = null; //TODO
@@ -115,7 +114,9 @@ public class Shop<T extends Production> implements IShop<T> {
     }
 
     @Override public void setRefreshTime(int interval){
-        //todo
+        if(RefreshTask != null){
+            RefreshTask.refreshInterval(interval);
+        }
     }
 
     @Override public int addProduction(T production){
