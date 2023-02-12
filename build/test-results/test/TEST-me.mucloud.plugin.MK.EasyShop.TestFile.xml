@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="me.mucloud.plugin.MK.EasyShop.TestFile" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-12T03:09:38" hostname="MUCLOUD-LAPTOP" time="0.01">
-  <properties/>
-  <testcase name="test1" classname="me.mucloud.plugin.MK.EasyShop.TestFile" time="0.01"/>
-  <system-out><![CDATA[[1, 2, 6]
-[1, 2, 6]
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
