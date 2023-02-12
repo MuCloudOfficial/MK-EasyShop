@@ -1,7 +1,7 @@
 #===================================================#
-#                              Made in Starry Sky.                             #
+#                 Made in Starry Sky.               #
 #===================================================#
-#                         该文件内的所有项目禁止修改！                      #
+#              该文件内的所有项目禁止修改！             #
 #===================================================#
 main: me.mucloud.plugin.MK.EasyShop.Main
 api-version: 1.13
@@ -24,5 +24,5 @@ permissions:
     description: The MK-EasyShop Admin Command.
     default: op
 #===================================================#
-#                   The Adv.Tech of TwilightCloudPavilion                #
+#       The Adv.Tech of TwilightCloudPavilion       #
 #===================================================#

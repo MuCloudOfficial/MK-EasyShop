@@ -2,7 +2,6 @@ package me.mucloud.plugin.MK.EasyShop.internal;
 
 import me.mucloud.plugin.MK.EasyShop.Main;
 import me.mucloud.plugin.MK.EasyShop.api.IConfiguration;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

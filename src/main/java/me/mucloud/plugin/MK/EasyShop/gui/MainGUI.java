@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class MainGUI{
 
     private Inventory GUI;
-    private static String GUITitle;
+    private String GUITitle;
     private ItemStack content;
     private ItemStack BUY;
     private ItemStack SELL;

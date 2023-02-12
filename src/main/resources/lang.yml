@@ -1,17 +1,19 @@
 #======================================================================#
-#                                             Made in Starry Sky.                                              #
+#                          Made in Starry Sky.                         #
 #======================================================================#
-#                                                                                                                     #
-#                 MK-EasyShop 语言设置                                                                      #
-#                 MK-EasyShop Lang Settings                                                               #
-#                                                                         作者：Mu_Cloud                       #
-#                                                                         Author: Mu_Cloud                     #
-#                                                                                                                     #
+#                                                                      #
+#       MK-EasyShop 语言设置                                            #
+#       MK-EasyShop Lang Settings                                      #
+#                                             作者：Mu_Cloud            #
+#                                             Author: Mu_Cloud         #
+#                                                                      #
 #======================================================================#
-#   如丢失或无法区分语言项，或对英文翻译有任何建议，请访问开源站的语言文件或提交 ISSUE    #
-#   对应最新版本翻译文件地址 >>>
-#   ISSUE 站 >>>
+#如丢失或无法区分语言项或对英文翻译有任何建议,请访问开源站的语言文件或提交 ISSUE #
+#  ISSUE 站 >>> https://github.com/MuCloudOfficial/MK-EasyShop/ISSUES  #
 #======================================================================#
+#  对应最新版本翻译文件地址 >>>
+#  https://github.com/MuCloudOfficial/MK-EasyShop/blob/master/src/main/resources/lang.yml
+
 
 # 设置文件版本
 # ！！！若非特殊说明，请不要随意改动该设置！！！

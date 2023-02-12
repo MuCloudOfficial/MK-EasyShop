@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariConfig;
 /**
  * @deprecated 尚未开发完毕
  */
+@Deprecated
 public class HikariMySQL {
 
     private final HikariConfig hc = new HikariConfig();

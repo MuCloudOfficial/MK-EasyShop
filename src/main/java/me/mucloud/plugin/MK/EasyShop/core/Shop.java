@@ -3,38 +3,35 @@ package me.mucloud.plugin.MK.EasyShop.core;
 import me.mucloud.plugin.MK.EasyShop.Main;
 import me.mucloud.plugin.MK.EasyShop.api.IProduction;
 import me.mucloud.plugin.MK.EasyShop.api.IShop;
+import me.mucloud.plugin.MK.EasyShop.gui.ShopGUI;
 import me.mucloud.plugin.MK.EasyShop.internal.Messages;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.inventory.meta.ItemMeta;;
 import org.jetbrains.annotations.Nullable;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 
 public class Shop<T extends Production> implements IShop<T> {
 
     private boolean Enabled;
     private final String ID;
-    private static String ShopName;
-    private static ShopPool.ShopType ShopType;
+    private String ShopName;
+    private ShopPool.ShopType ShopType;
     private Material ICON;
     private String AccessPermission;
 
-    private boolean AutoRefreshEnabled;
-    private int RefreshInterval;
-    private long Remaining;
-    private BukkitTask RefreshTask;
+    private ShopRefreshTask RefreshTask;
 
-    private Inventory ShopInv;
+    private ShopGUI GUI;
     private final List<T> ProductionList;
 
-    Shop(String id, ShopPool.ShopType shopType, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
+    Shop(Main m, String id, ShopPool.ShopType shopType, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
         ID = id;
         ShopType = shopType;
         ShopName = shopName;
@@ -42,27 +39,13 @@ public class Shop<T extends Production> implements IShop<T> {
         AccessPermission = accessPermission;
         ProductionList = new ArrayList<>();
         if(refreshInterval != -1){
-            AutoRefreshEnabled = true;
-            setRefreshTime(refreshInterval);
-            autoRefreshTask();
+            RefreshTask = new ShopRefreshTask(m, this);
         }
 
-        ShopInv = Bukkit.createInventory(null, 54);
+        GUI = null; //TODO
         Enabled = true;
     }
 
-    private void autoRefreshTask(){
-        RefreshTask = new BukkitRunnable() {
-            @Override public void run() {
-                if(Remaining < 0){
-                    refresh();
-                }else{
-                    Remaining -= 1000;
-                }
-                ShopName = ShopName + getRemaining();
-            }
-        }.runTaskTimerAsynchronously(Main.plugin, 0, 20L);
-    }
 
     @Override public String getID(){
         return ID;
@@ -77,21 +60,12 @@ public class Shop<T extends Production> implements IShop<T> {
     }
 
     @Override public void close() {
-        if(Enabled){
-            if(AutoRefreshEnabled){
-                RefreshTask.cancel();
-            }
-            Enabled = false;
-        }
+        Enabled = false;
     }
 
     @Override public void open() {
-        if(!Enabled){
-            if(AutoRefreshEnabled){
-                autoRefreshTask();
-            }
-            Enabled = true;
-        }
+        Enabled = true;
+
     }
 
     @Override public void setShopName(String shopName){
@@ -131,33 +105,17 @@ public class Shop<T extends Production> implements IShop<T> {
     }
 
     public String getRemaining(){
-        if(Messages.Locale.equals("en_US")){
-            return new SimpleDateFormat("ddD HHH mmM ssS").format(Remaining);
-        }else{
-            return new SimpleDateFormat("dd天 HH时 mm分 ss秒").format(Remaining);
-        }
+        //todo
+        return null;
     }
 
     @Override public int getRefreshInterval(){
-        return RefreshInterval;
+        //todo
+        return 0;
     }
 
     @Override public void setRefreshTime(int interval){
-        if(RefreshTask != null){
-            if(!RefreshTask.isCancelled()){
-               RefreshTask.cancel();
-            }
-        }
-        RefreshInterval = interval;
-        Calendar c = Calendar.getInstance();
-        c.set(c.get(Calendar.YEAR),
-                c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH),
-                c.get(Calendar.HOUR_OF_DAY),
-                c.get(Calendar.MINUTE),
-                c.get(Calendar.SECOND));
-        long refreshDate = c.getTimeInMillis();
-        Remaining = refreshDate - new Date().getTime();
+        //todo
     }
 
     @Override public int addProduction(T production){

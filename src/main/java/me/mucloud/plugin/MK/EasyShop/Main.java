@@ -14,14 +14,17 @@ import java.util.Objects;
 
 public class Main extends JavaPlugin{
 
+    private static Main plugin;
+
     private Configuration C;
     private CommandManager CM;
     private ShopPool SP;
 
-    private static boolean Hook_Vault;
     private static boolean Hook_PAPI;
 
     @Override public void onEnable() {
+        plugin = this;
+
         ConsoleSender.info("MADE IN STARRY SKY.");
         loadMessages();
         loadConfig();
@@ -30,7 +33,7 @@ public class Main extends JavaPlugin{
 
         C.initialize();
 
-        SP = new ShopPool();
+        deployShops();
         regCommands();
 
     }
@@ -51,15 +54,16 @@ public class Main extends JavaPlugin{
 
     public void requestHookPlugins(){
         if(Bukkit.getPluginManager().getPlugin("Vault") != null){
-
+            ConsoleSender.sendConsoleMessage(Messages.PLUGIN_HOOK_VAULT);
         }else{
-            ConsoleSender.err(Messages.PLUGIN_NOT_FOUND_VAULT);
+            ConsoleSender.sendConsoleMessage(Messages.PLUGIN_NOT_FOUND_VAULT);
+            Bukkit.getPluginManager().disablePlugin(this);
         }
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
             Hook_PAPI = true;
         }else{
-
+            ConsoleSender.sendConsoleMessage(Messages.PLUGIN_NOT_FOUND_PAPI);
         }
     }
 
@@ -75,6 +79,10 @@ public class Main extends JavaPlugin{
         }
     }
 
+    public void deployShops(){
+        new ShopPool(this);
+    }
+
     public void regCommands(){
         CM = new CommandManager(C);
         Objects.requireNonNull(getCommand("mkes")).setExecutor(CM);
@@ -83,6 +91,10 @@ public class Main extends JavaPlugin{
 
     public static boolean isHookPAPI(){
         return Hook_PAPI;
+    }
+
+    public static Main getInstance(){
+        return plugin;
     }
 
 }

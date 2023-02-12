@@ -2,13 +2,14 @@ package me.mucloud.plugin.MK.EasyShop.internal;
 
 import me.mucloud.plugin.MK.EasyShop.Main;
 import me.mucloud.plugin.MK.EasyShop.internal.Configuration;
+import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.logging.Logger;
 
 public final class ConsoleSender {
 
-    private static final ConsoleCommandSender CCS = Main.plugin.getServer().getConsoleSender();
+    private static final ConsoleCommandSender CCS = Bukkit.getConsoleSender();
     private static final Logger LOGGER = Logger.getLogger(Configuration.Prefix);
 
     public static void sendConsoleMessage(String s){
