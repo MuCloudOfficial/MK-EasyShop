@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+group 'me.mucloud'
+version 'StarrySky'
+
+repositories {
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        // As of Gradle 5.1, you can limit this to only those
+        // dependencies you expect from it
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+    maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.jetbrains:annotations:23.0.0'
+
+    compileOnly 'me.clip:placeholderapi:2.11.2'
+    compileOnly 'org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT' // The Spigot API with no shadowing. Requires the OSS repo.
+
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.1'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.30'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.40.1.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testImplementation 'junit:junit:4.13.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}

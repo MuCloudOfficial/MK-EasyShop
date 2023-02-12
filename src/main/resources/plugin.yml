@@ -1,0 +1,28 @@
+#===================================================#
+#                              Made in Starry Sky.                             #
+#===================================================#
+#                         该文件内的所有项目禁止修改！                      #
+#===================================================#
+main: me.mucloud.plugin.MK.EasyShop.Main
+api-version: 1.13
+#===================================================#
+name: MK-EasyShop
+versionCN: 星空
+version: StarrySky
+internalVersion: 1.1001
+authors: [ "Mu_Cloud" ]
+website: https://github.com/MuCloudOfficial/MK-EasyShop
+softdepend: [ "Vault" , "PlaceholderAPI" ]
+#===================================================#
+commands:
+  mkes:
+    description: The MK-EasyShop Main Command.
+    usage: /mkes [args...]
+#===================================================#
+permissions:
+  mkes.admin:
+    description: The MK-EasyShop Admin Command.
+    default: op
+#===================================================#
+#                   The Adv.Tech of TwilightCloudPavilion                #
+#===================================================#
