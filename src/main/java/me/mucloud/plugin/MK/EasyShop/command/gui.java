@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 
 public class gui {
 
-    private Configuration C;
-    private CommandSender Sender;
+    private final Configuration C;
+    private final CommandSender Sender;
 
     gui(Configuration c, CommandSender sender){
         C = c;
@@ -18,7 +18,7 @@ public class gui {
 
     public void execute(){
         if(Sender instanceof Player){
-            ViewPool.toView((Player) Sender, new MainView(C));
+            ViewPool.toView((Player) Sender, new MainView(C, (Player) Sender));
         }else{
             Sender.sendMessage("需要玩家执行");
         }

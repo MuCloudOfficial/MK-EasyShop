@@ -18,7 +18,7 @@ public class Configuration implements IConfiguration {
     // 关于插件
     // About Plugin.
     private final Main Main;
-    public static final String Prefix = "§b§lMK§7§l-§6§lEasyShop";
+    public static final String Prefix = "§7§l[§b§lMK§7§l-§6§lEasyShop§7§l] ";
     private String Authors;
     private String Website;
     private String Version;

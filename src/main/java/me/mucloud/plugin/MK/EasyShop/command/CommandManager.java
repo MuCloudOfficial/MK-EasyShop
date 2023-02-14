@@ -25,7 +25,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
     public void sendInfo(CommandSender sender){
         if(Messages.Locale.equals("en_US")){
-            sender.sendMessage("§7§l| " + Configuration.Prefix + "      §6§lVer." + C.getVersion());
+            sender.sendMessage("§7§l| §b§lMK§7§l-§6§lEasyShop      §6§lVer." + C.getVersion());
             sender.sendMessage("§7§l| §e§lAuthor: §7§l" + C.getAuthors());
             sender.sendMessage("§7§l| §e§lOpenSource: " + C.getWebsite());
             sender.sendMessage("§7§l| §7§m---------------------------------------------------------");
@@ -37,7 +37,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| §7§m---------------------------------------------------------");
         }else{
-            sender.sendMessage("§7§l| " + Configuration.Prefix + "      " + C.getVersion() + "§6§l版本");
+            sender.sendMessage("§7§l| §b§lMK§7§l-§6§lEasyShop      " + C.getVersion() + "§6§l版本");
             sender.sendMessage("§7§l| §e§l作者: §7§l" + C.getAuthors());
             sender.sendMessage("§7§l| §e§l开源站: " + C.getWebsite());
             sender.sendMessage("§7§l| §7§m---------------------------------------------------------");

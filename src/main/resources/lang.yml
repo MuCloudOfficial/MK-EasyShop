@@ -34,6 +34,7 @@ zh_CN:
   # https://www.spigotmc.org/resources/vault.34315/history
   PLUGIN_HOOK_VAULT: "&a检测到 Vault"
   PLUGIN_NOT_FOUND_VAULT: "&4&l未检测到 Vault，插件必须依赖 Vault 才能工作，请访问 https://www.spigotmc.org/resources/vault.34315/history 以获取 Vault"
+  PLUGIN_NOT_COMPATIBLE_VAULT: "&4&l已检测到 Vault，但你的服务器并没有任何一个经济插件以支持其工作，请安装一个经济插件以确保经济系统工作，本次插件将关闭"
 
   # PlaceholderAPI 插件下载链接.
   # https://www.spigotmc.org/resources/placeholderapi.6245/history

@@ -13,7 +13,7 @@ public class ViewPool {
 
     public static void toView(Player viewer, View view){
         Pool.put(viewer, view);
-        view.toView(viewer);
+        view.toView();
     }
 
     public static void closeView(View v){

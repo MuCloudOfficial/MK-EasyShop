@@ -2,6 +2,7 @@ package me.mucloud.plugin.MK.EasyShop.internal;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.mucloud.plugin.MK.EasyShop.Main;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -41,6 +42,7 @@ public class Messages {
     public static String PLUGIN_DISABLED;
     public static String PLUGIN_HOOK_VAULT;
     public static String PLUGIN_NOT_FOUND_VAULT;
+    public static String PLUGIN_NOT_COMPATIBLE_VAULT;
     public static String PLUGIN_HOOK_PAPI;
     public static String PLUGIN_NOT_FOUND_PAPI;
 
@@ -94,6 +96,7 @@ public class Messages {
         PLUGIN_DISABLED = convert(fc.getString(Locale + ".PLUGIN_DISABLED"), null, null);
         PLUGIN_HOOK_VAULT = convert(fc.getString(Locale + ".PLUGIN_HOOK_VAULT"), null, null);
         PLUGIN_NOT_FOUND_VAULT = convert(fc.getString(Locale + ".PLUGIN_NOT_FOUND_VAULT"), null, null);
+        PLUGIN_NOT_COMPATIBLE_VAULT = convert(fc.getString(Locale) + ".PLUGIN_NOT_COMPATIBLE_VAULT",null ,null);
         PLUGIN_HOOK_PAPI = convert(fc.getString(Locale + ".PLUGIN_HOOK_PAPI"), null, null);
         PLUGIN_NOT_FOUND_PAPI = convert(fc.getString(Locale + ".PLUGIN_NOT_FOUND_PAPI"), null, null);
 
@@ -144,6 +147,9 @@ public class Messages {
     }
 
     public static String requestPlaceholder(OfflinePlayer p, String s){
+        s = s.replace("{player}", p.getPlayer().getDisplayName())
+                .replace("{money}", String.valueOf(Plugin.getEcon().getBalance(p)));
+
         return Main.isHookPAPI() ? PlaceholderAPI.setPlaceholders(p, s) : s;
     }
 

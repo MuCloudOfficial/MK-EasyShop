@@ -11,8 +11,8 @@ public abstract class DataView<T extends Viewable> extends View implements IData
     private String Title;
     private List<T> DataSource;
 
-    public DataView(String title, int viewSize, List<T> initDataSource) {
-        super(viewSize);
+    public DataView(Player p, String title, int viewSize, List<T> initDataSource) {
+        super(p, viewSize);
         Title = title;
         DataSource = initDataSource;
     }
@@ -21,7 +21,7 @@ public abstract class DataView<T extends Viewable> extends View implements IData
         return DataSource.get(index);
     }
 
-    @Override public void toView(Player viewer) {
+    @Override public void toView() {
 
     }
 

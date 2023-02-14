@@ -1,7 +1,6 @@
 package me.mucloud.plugin.MK.EasyShop.api;
 
 import me.mucloud.plugin.MK.EasyShop.gui.View;
-import org.bukkit.entity.Player;
 
 public interface IView {
 
@@ -15,6 +14,6 @@ public interface IView {
 
     boolean equals(View v);
 
-    void toView(Player viewer);
+    void toView();
 
 }

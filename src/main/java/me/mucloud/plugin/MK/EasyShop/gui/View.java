@@ -7,12 +7,20 @@ public abstract class View implements IView{
 
     private String Title;
     private final int ViewSize;
+    private final Player Viewer;
 
-    public View(int viewSize){
+    public View(Player viewer, int viewSize){
+        Viewer = viewer;
         ViewSize = viewSize;
         Title = "";
     }
 
+    public Player getViewer() {
+        return Viewer;
+    }
+    public boolean isView(Player viewer){
+        return Viewer.equals(viewer);
+    }
     public void setTitle(String title){
         Title = title;
     }
@@ -28,6 +36,6 @@ public abstract class View implements IView{
     public boolean equals(View v){
         return Title.equals(v.Title);
     }
-    public abstract void toView(Player viewer);
+    public abstract void toView();
 
 }
