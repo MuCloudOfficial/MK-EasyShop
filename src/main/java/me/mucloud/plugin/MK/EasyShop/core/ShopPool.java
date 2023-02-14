@@ -42,8 +42,8 @@ public class ShopPool {
         }
     }
 
-    public int addBuyShop(String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
-        Shop<BuyProduct> shop = new Shop<>(ShopType.BUY, shopName, icon, accessPermission, refreshInterval);
+    public int addBuyShop(String shopName, Material icon, List<String> shopDetail, @Nullable String accessPermission, int refreshInterval){
+        Shop<BuyProduct> shop = new Shop<>(ShopType.BUY, shopName, icon, shopDetail, accessPermission, refreshInterval);
         for(Shop<?> s : Pool){
             if(s.equals(shop)){
                 return 1;
@@ -53,8 +53,8 @@ public class ShopPool {
         return 0;
     }
 
-    public int addSellShop(String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
-        Shop<SellProduct> shop = new Shop<>(ShopType.SELL, shopName, icon, accessPermission, refreshInterval);
+    public int addSellShop(String shopName, Material icon, List<String> shopDetail, @Nullable String accessPermission, int refreshInterval){
+        Shop<SellProduct> shop = new Shop<>(ShopType.SELL, shopName, icon, shopDetail, accessPermission, refreshInterval);
         for(Shop<?> s : Pool){
             if(s.equals(shop)){
                 return 1;

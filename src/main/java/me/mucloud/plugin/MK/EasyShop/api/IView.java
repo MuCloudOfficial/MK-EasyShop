@@ -1,10 +1,7 @@
 package me.mucloud.plugin.MK.EasyShop.api;
 
-import org.bukkit.entity.Item;
+import me.mucloud.plugin.MK.EasyShop.gui.View;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.List;
 
 public interface IView {
 
@@ -14,22 +11,10 @@ public interface IView {
 
     int getViewSize();
 
-    Player getViewer();
-
-    void refreshView();
-
-    boolean isView(Player p);
-
-    void toView();
-
     void closeView();
 
-    void setContent(int index, ItemStack is);
+    boolean equals(View v);
 
-    void addContent(ItemStack... is);
-
-    List<ItemStack> getViewContent();
-
-    void setViewContent(List<ItemStack> content);
+    void toView(Player viewer);
 
 }

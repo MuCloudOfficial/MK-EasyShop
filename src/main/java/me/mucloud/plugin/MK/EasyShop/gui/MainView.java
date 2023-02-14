@@ -2,51 +2,52 @@ package me.mucloud.plugin.MK.EasyShop.gui;
 
 import me.mucloud.plugin.MK.EasyShop.internal.Configuration;
 import me.mucloud.plugin.MK.EasyShop.internal.Messages;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.List;
+public class MainView extends View {
 
-public class MainView extends FixableView{
-
-    private Configuration C;
+    private final int Size = 27;
     private Inventory Inv;
+    private String Title;
+    private String BuyTitle;
+    private String SellTitle;
+    private String SkullTitle;
+    private String SkullLore;
 
-    public MainView(Configuration C, Player viewer) {
-        super(Messages.requestPlaceholder(viewer, C.getGuiTitleName()), 27, viewer);
+    public MainView(Configuration c){
+        super(27);
+
+        Title = c.getGuiTitleName();
     }
 
-    public void toView(){
-        ItemStack content = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-        ItemStack buyIcon = new ItemStack(Material.CHEST);
-        ItemStack sellIcon = new ItemStack(Material.ENDER_CHEST);
+    @Override public void toView(Player viewer) {
+        setTitle(Messages.requestPlaceholder(viewer, Title));
+
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        ItemStack buyTitle = new ItemStack(Material.CHEST);
+        ItemStack sellTitle = new ItemStack(Material.ENDER_CHEST);
 
-        ItemMeta im_content = content.getItemMeta();
-        ItemMeta im_buyIcon = buyIcon.getItemMeta();
-        ItemMeta im_sellIcon = sellIcon.getItemMeta();
         ItemMeta im_skull = skull.getItemMeta();
+        ItemMeta im_buyTitle = buyTitle.getItemMeta();
+        ItemMeta im_sellTitle = sellTitle.getItemMeta();
 
-        im_content.setDisplayName("");
-        im_buyIcon.setDisplayName(Messages.requestPlaceholder(getViewer(), Messages.SHOP_GUI_BUY));
-        im_sellIcon.setDisplayName(Messages.requestPlaceholder(getViewer(), Messages.SHOP_GUI_SELL));
-        im_skull.setDisplayName(Messages.requestPlaceholder(getViewer(), Messages.SHOP_GUI_SKULL_TITLE));
-        im_skull.setLore(Messages.requestPlaceholder(getViewer(), Messages.SHOP_GUI_SKULL_LORE));
+        im_skull.setDisplayName(Messages.requestPlaceholder(viewer, Messages.SHOP_GUI_SKULL_TITLE));
+        im_skull.setLore(Messages.requestPlaceholder(viewer, Messages.SHOP_GUI_SKULL_LORE));
+        im_buyTitle.setDisplayName(Messages.requestPlaceholder(viewer, Messages.SHOP_GUI_BUY));
+        im_sellTitle.setDisplayName(Messages.requestPlaceholder(viewer, Messages.SHOP_GUI_SELL));
 
-        setViewContent(List.of(
-                content, content, content, content, content, content, content, content, content,
-                content, buyIcon, content, content, skull, content, content, sellIcon, content,
-                content, content, content, content, content, content, content, content, content
-        ));
+        skull.setItemMeta(im_skull);
+        buyTitle.setItemMeta(im_buyTitle);
+        sellTitle.setItemMeta(im_sellTitle);
 
-        getViewContent().forEach(Inv::addItem);
-        getViewer().closeInventory();
-        getViewer().openInventory(Inv);
+        Inv = Bukkit.createInventory(null, getViewSize(), getTitle());
+        viewer.closeInventory();
+        viewer.openInventory(Inv);
     }
-
-    @Override public void refreshView() {}
 
 }

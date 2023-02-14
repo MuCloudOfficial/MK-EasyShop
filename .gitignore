@@ -1,2 +1,4 @@
 build/
 .idea/
+secret.gpg
+gradle.properties

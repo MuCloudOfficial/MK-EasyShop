@@ -1,14 +1,12 @@
 package me.mucloud.plugin.MK.EasyShop.listener;
 
+import me.mucloud.plugin.MK.EasyShop.gui.View;
+import me.mucloud.plugin.MK.EasyShop.gui.ViewPool;
 import me.mucloud.plugin.MK.EasyShop.internal.Configuration;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class GUIListener implements Listener {
 
@@ -19,6 +17,7 @@ public class GUIListener implements Listener {
     }
 
     @EventHandler public void onListen(InventoryClickEvent ice){
+
 
     }
 
