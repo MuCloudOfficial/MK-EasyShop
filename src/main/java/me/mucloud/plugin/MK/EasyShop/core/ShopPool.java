@@ -19,7 +19,7 @@ public class ShopPool {
 
     private static final Main plugin = Main.getInstance();
     private final File ShopFolder;
-    private final List<Shop<? extends Production>> Pool;
+    private final List<Shop<? extends Product>> Pool;
 
     public ShopPool(){
         Pool = new ArrayList<>();
@@ -42,8 +42,8 @@ public class ShopPool {
         }
     }
 
-    public int addBuyShop(String id, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
-        Shop<BuyProduction> shop = new Shop<>(id, ShopType.BUY, shopName, icon, accessPermission, refreshInterval);
+    public int addBuyShop(String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
+        Shop<BuyProduct> shop = new Shop<>(ShopType.BUY, shopName, icon, accessPermission, refreshInterval);
         for(Shop<?> s : Pool){
             if(s.equals(shop)){
                 return 1;
@@ -53,8 +53,8 @@ public class ShopPool {
         return 0;
     }
 
-    public int addSellShop(String id, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
-        Shop<SellProduction> shop = new Shop<>(id, ShopType.SELL, shopName, icon, accessPermission, refreshInterval);
+    public int addSellShop(String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
+        Shop<SellProduct> shop = new Shop<>(ShopType.SELL, shopName, icon, accessPermission, refreshInterval);
         for(Shop<?> s : Pool){
             if(s.equals(shop)){
                 return 1;
@@ -68,30 +68,39 @@ public class ShopPool {
         return Pool.get(index);
     }
 
-    @Nullable public IShop<?> getShop(String id){
+    public boolean contains(String shopName){
         for(Shop<?> shop : Pool){
-            if(shop.equals(id)){
+            if(shop.equals(shopName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Nullable public IShop<?> getShop(String shopName){
+        for(Shop<?> shop : Pool){
+            if(shop.equals(shopName)){
                 return shop;
             }
         }
         return null;
     }
 
-    @SuppressWarnings("unchecked") public List<Shop<BuyProduction>> getBuyShopList(){
-        List<Shop<BuyProduction>> list = new ArrayList<>();
-        for(Shop<? extends Production> shop : Pool){
+    @SuppressWarnings("unchecked") public List<Shop<BuyProduct>> getBuyShopList(){
+        List<Shop<BuyProduct>> list = new ArrayList<>();
+        for(Shop<?> shop : Pool){
             if(shop.getShopType() == ShopType.BUY){
-                list.add((Shop<BuyProduction>) shop);
+                list.add((Shop<BuyProduct>) shop);
             }
         }
         return list;
     }
 
-    @SuppressWarnings("unchecked") public List<Shop<SellProduction>> getSellShopList(){
-        List<Shop<SellProduction>> list = new ArrayList<>();
-        for(Shop<? extends Production> shop : Pool){
+    @SuppressWarnings("unchecked") public List<Shop<SellProduct>> getSellShopList(){
+        List<Shop<SellProduct>> list = new ArrayList<>();
+        for(Shop<?> shop : Pool){
             if(shop.getShopType() == ShopType.SELL){
-                list.add((Shop<SellProduction>) shop);
+                list.add((Shop<SellProduct>) shop);
             }
         }
         return list;

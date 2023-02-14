@@ -1,11 +1,11 @@
 package me.mucloud.plugin.MK.EasyShop.core;
 
-import me.mucloud.plugin.MK.EasyShop.api.IProduction;
+import me.mucloud.plugin.MK.EasyShop.api.IProduct;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Production implements IProduction {
+public abstract class Product implements IProduct {
 
     private final int ID;
     private final ItemStack Type;
@@ -13,7 +13,7 @@ public abstract class Production implements IProduction {
     private final int MaxAmount;
     private int Amount;
 
-    public Production(int id, Material type, int price, int maxAmount) {
+    public Product(int id, Material type, int price, int maxAmount) {
         ID = id;
         Type = new ItemStack(type,1);
         Price = price;
@@ -21,7 +21,7 @@ public abstract class Production implements IProduction {
         Amount = MaxAmount;
     }
 
-    public Production(int id, @NotNull ItemStack is, int price, int maxAmount){
+    public Product(int id, @NotNull ItemStack is, int price, int maxAmount){
         ID = id;
         Type = is;
         Type.setAmount(1);
@@ -29,6 +29,8 @@ public abstract class Production implements IProduction {
         MaxAmount = maxAmount;
         Amount = MaxAmount;
     }
+
+    @Override public abstract ItemStack toIcon();
 
     @Override public void refresh() {
         Amount = MaxAmount;
@@ -38,7 +40,7 @@ public abstract class Production implements IProduction {
         return ID == id;
     }
 
-    @Override public boolean equals(Production p){
+    @Override public boolean equals(Product p){
         return equals(p.ID);
     }
 

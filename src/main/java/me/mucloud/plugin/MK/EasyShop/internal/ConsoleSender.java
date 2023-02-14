@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public final class ConsoleSender {
 
     private static final ConsoleCommandSender CCS = Bukkit.getConsoleSender();
-    private static final Logger LOGGER = Logger.getLogger(Configuration.Prefix);
+    private static final Logger LOGGER = Logger.getLogger("The Adv.Tech of TwilightCloudPavilion");
 
     public static void sendConsoleMessage(String s){
         CCS.sendMessage(s);

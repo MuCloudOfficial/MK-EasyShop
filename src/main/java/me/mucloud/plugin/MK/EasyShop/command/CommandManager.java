@@ -1,7 +1,7 @@
 package me.mucloud.plugin.MK.EasyShop.command;
 
-import me.mucloud.plugin.MK.EasyShop.api.IConfiguration;
 import me.mucloud.plugin.MK.EasyShop.internal.Configuration;
+import me.mucloud.plugin.MK.EasyShop.internal.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,44 +13,56 @@ import java.util.List;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
 
-    private final IConfiguration IC;
+    private final Configuration C;
     private final List<String> SubCommands;
 
     public CommandManager(Configuration configuration){
-        IC = configuration;
+        C = configuration;
         SubCommands = new ArrayList<>();
+        SubCommands.add("gui");
+        SubCommands.add("info");
     }
 
-    public void sendInfo(CommandSender sender, String Locale){
-        if(Locale.equals("en_US")){
-            sender.sendMessage("§7§l| " + Configuration.Prefix + "      §6§lVer." + IC.getVersion());
-            sender.sendMessage("§7§l| §e§lAuthor: §7§l" + IC.getAuthors().toString().substring(1, IC.getAuthors().toString().length() - 2).replace(",", " "));
-            sender.sendMessage("§7§l| §e§lOpenSource: " + IC.getWebsite());
-            sender.sendMessage("§7§l| &7&m---------------------------------------------------------");
+    public void sendInfo(CommandSender sender){
+        if(Messages.Locale.equals("en_US")){
+            sender.sendMessage("§7§l| " + Configuration.Prefix + "      §6§lVer." + C.getVersion());
+            sender.sendMessage("§7§l| §e§lAuthor: §7§l" + C.getAuthors());
+            sender.sendMessage("§7§l| §e§lOpenSource: " + C.getWebsite());
+            sender.sendMessage("§7§l| §7§m---------------------------------------------------------");
+            sender.sendMessage("§7§l| §6/mkes gui     §eOpen Shop GUI");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
-            sender.sendMessage("§7§l| ");
-            sender.sendMessage("§7§l| &7&m---------------------------------------------------------");
+            sender.sendMessage("§7§l| §7§m---------------------------------------------------------");
         }else{
-            sender.sendMessage("§7§l| " + Configuration.Prefix + "      " + IC.getVersion() + "§6§l版本");
-            sender.sendMessage("§7§l| §e§l作者: §7§l" + IC.getAuthors().toString().substring(1, IC.getAuthors().toString().length() - 2).replace(",", " "));
-            sender.sendMessage("§7§l| §e§l开源站: " + IC.getWebsite());
-            sender.sendMessage("§7§l| &7&m---------------------------------------------------------");
+            sender.sendMessage("§7§l| " + Configuration.Prefix + "      " + C.getVersion() + "§6§l版本");
+            sender.sendMessage("§7§l| §e§l作者: §7§l" + C.getAuthors());
+            sender.sendMessage("§7§l| §e§l开源站: " + C.getWebsite());
+            sender.sendMessage("§7§l| §7§m---------------------------------------------------------");
+            sender.sendMessage("§7§l| §6/mkes gui      §e打开商店");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
             sender.sendMessage("§7§l| ");
-            sender.sendMessage("§7§l| ");
-            sender.sendMessage("§7§l| &7&m---------------------------------------------------------");
+            sender.sendMessage("§7§l| §7§m---------------------------------------------------------");
         }
     }
 
     @Override public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] ss) {
-        return false;
+        if(cmd.getName().equalsIgnoreCase("mkes")){
+            if(ss.length == 0){
+                sendInfo(sender);
+            }else{
+                switch (ss[0].toLowerCase()) {
+                    case "info" -> { sendInfo(sender); return true; }
+                    case "gui" -> { new gui(C, sender).execute(); return true; }
+                }
+            }
+        }
+        return true;
     }
 
     @Override public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] ss) {

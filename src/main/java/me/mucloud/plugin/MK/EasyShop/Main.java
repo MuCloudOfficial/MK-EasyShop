@@ -6,8 +6,10 @@ import me.mucloud.plugin.MK.EasyShop.core.ShopPool;
 import me.mucloud.plugin.MK.EasyShop.internal.Configuration;
 import me.mucloud.plugin.MK.EasyShop.internal.ConsoleSender;
 import me.mucloud.plugin.MK.EasyShop.internal.Messages;
+import me.mucloud.plugin.MK.EasyShop.listener.GUIListener;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -28,16 +30,24 @@ public class Main extends JavaPlugin{
         ConsoleSender.info("MADE IN STARRY SKY.");
 
         loadMessages();
+        requestHookPlugins();
         loadConfig();
         ConsoleSender.sendConsoleMessage("§b§lMADE IN STARRY SKY.");
-
+        ConsoleSender.sendConsoleMessage(Messages.PLUGIN_ENABLING);
         deployShops();
         regCommands();
+        regListeners();
 
+        ConsoleSender.sendConsoleMessage(Messages.PLUGIN_ENABLED);
     }
 
     @Override public void onDisable() {
-        super.onDisable();
+        ConsoleSender.sendConsoleMessage(Messages.PLUGIN_DISABLING);
+
+        unregCommands();
+        unregListeners();
+
+        ConsoleSender.sendConsoleMessage(Messages.PLUGIN_DISABLED);
     }
 
     public void onReload(){
@@ -45,22 +55,21 @@ public class Main extends JavaPlugin{
     }
 
     public void requestHookPlugins(){
-        if(Bukkit.getPluginManager().getPlugin("Vault") != null){
-            ConsoleSender.sendConsoleMessage(Messages.PLUGIN_HOOK_VAULT);
-        }else{
+        if(Bukkit.getPluginManager().getPlugin("Vault") == null){
             ConsoleSender.sendConsoleMessage(Messages.PLUGIN_NOT_FOUND_VAULT);
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
-            Hook_PAPI = true;
-        }else{
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null){
             ConsoleSender.sendConsoleMessage(Messages.PLUGIN_NOT_FOUND_PAPI);
+        }else{
+            Hook_PAPI = true;
         }
     }
 
     private void loadConfig(){
         C = new Configuration(this);
+        C.initialize();
     }
 
     private void loadMessages(){
@@ -79,6 +88,20 @@ public class Main extends JavaPlugin{
         CM = new CommandManager(C);
         Objects.requireNonNull(getCommand("mkes")).setExecutor(CM);
         Objects.requireNonNull(getCommand("mkes")).setTabCompleter(CM);
+    }
+
+
+    private void unregCommands(){
+        Objects.requireNonNull(getCommand("mkes")).setExecutor(null);
+        Objects.requireNonNull(getCommand("mkes")).setTabCompleter(null);
+    }
+
+    private void regListeners(){
+        Bukkit.getPluginManager().registerEvents(new GUIListener(C), this);
+    }
+
+    private void unregListeners(){
+        HandlerList.unregisterAll(this);
     }
 
     public static boolean isHookPAPI(){

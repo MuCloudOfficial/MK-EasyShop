@@ -18,7 +18,7 @@ public class Updater {
         InternalVersion = c.getInternalVersion();
     }
 
-    public fetchRemoteVersion(){
+    public void fetchRemoteVersion(){
 
     }
 

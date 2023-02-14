@@ -1,12 +1,11 @@
 package me.mucloud.plugin.MK.EasyShop.core;
 
-import me.mucloud.plugin.MK.EasyShop.Main;
-import me.mucloud.plugin.MK.EasyShop.api.IProduction;
 import me.mucloud.plugin.MK.EasyShop.api.IShop;
-import me.mucloud.plugin.MK.EasyShop.gui.ShopGUI;
+import me.mucloud.plugin.MK.EasyShop.api.Viewable;
 import me.mucloud.plugin.MK.EasyShop.internal.Messages;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;;
 import org.jetbrains.annotations.Nullable;
@@ -14,40 +13,31 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
-public class Shop<T extends Production> implements IShop<T> {
+public class Shop<T extends Product> implements IShop<T>, Viewable{
 
     private boolean Enabled;
-    private final String ID;
     private String ShopName;
     private ShopPool.ShopType ShopType;
     private Material ICON;
+    private List<String> ShopDetail;
     private String AccessPermission;
     private ShopRefreshTask RefreshTask;
-
-    private ShopGUI GUI;
     private final List<T> ProductionList;
 
-    Shop(String id, ShopPool.ShopType shopType, String shopName, Material icon, @Nullable String accessPermission, int refreshInterval){
-        ID = id;
+    Shop(ShopPool.ShopType shopType, String shopName, Material icon, List<String> shopDetail, @Nullable String accessPermission, int refreshInterval){
         ShopType = shopType;
         ShopName = shopName;
         ICON = icon;
+        ShopDetail = shopDetail;
         AccessPermission = accessPermission;
         ProductionList = new ArrayList<>();
         if(refreshInterval != -1){
             RefreshTask = new ShopRefreshTask(this);
         }
 
-        GUI = null; //TODO
         Enabled = true;
-    }
-
-
-    @Override public String getID(){
-        return ID;
     }
 
     @Override public ShopPool.ShopType getShopType(){
@@ -75,6 +65,11 @@ public class Shop<T extends Production> implements IShop<T> {
         return ShopName;
     }
 
+    @Override public Inventory toInv(Player p) {
+        //todo
+        return null;
+    }
+
     @Override public ItemStack toIcon(){
         ItemStack is = new ItemStack(ICON, 1);
         ItemMeta im = is.getItemMeta();
@@ -100,7 +95,7 @@ public class Shop<T extends Production> implements IShop<T> {
     }
 
     @Override public void refresh() {
-        ProductionList.forEach(Production::refresh);
+        ProductionList.forEach(Product::refresh);
     }
 
     public String getRemaining(){
@@ -120,7 +115,7 @@ public class Shop<T extends Production> implements IShop<T> {
     }
 
     @Override public int addProduction(T production){
-        for(Production p : ProductionList){
+        for(Product p : ProductionList){
             if(p.equals(production)){
                 return 1;
             }
@@ -131,7 +126,7 @@ public class Shop<T extends Production> implements IShop<T> {
 
     @Override public int removeProduction(T production){
         int index = -1;
-        for(Production p : ProductionList){
+        for(Product p : ProductionList){
             if(p.equals(production)){
                 index = ProductionList.indexOf(p);
             }
@@ -147,16 +142,16 @@ public class Shop<T extends Production> implements IShop<T> {
         return ProductionList;
     }
 
-    @Override public IProduction getProduction(int index){
+    @Override public Product getProduction(int index){
         return ProductionList.get(index);
     }
 
-    @Override public boolean equals(String id){
-        return ID.equals(id);
+    @Override public boolean equals(String shopName){
+        return ShopName.equals(shopName);
     }
 
     @Override public boolean equals(Shop<?> s) {
-        return (Objects.equals(ID, s.ID) && ICON == s.ICON) || ShopName.equals(s.getShopName());
+        return ShopName.equals(s.getShopName()) && ICON == s.ICON;
     }
 
 }

@@ -1,9 +1,15 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'signing'
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
-group 'me.mucloud'
-version 'StarrySky'
+group = "io.github.mucloudofficial"
+version = null
+String InternalVersion = null
+String VersionCN = null
+
 
 repositories {
     maven {
@@ -21,6 +27,7 @@ repositories {
     maven { url = 'https://oss.sonatype.org/content/repositories/central' }
     maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
     mavenCentral()
+
 }
 
 dependencies {
@@ -40,6 +47,52 @@ dependencies {
 
 }
 
+task fetchVersion{
+    FileReader fr = new FileReader(new File(projectDir,"src/main/resources/plugin.yml"))
+
+    String s
+    while((s = fr.readLine()) != null){
+        if(s.contains("version")){
+            version = s.split(":")[1].trim()
+        }
+        if(s.contains("versionCN")){
+            VersionCN = s.split(":")[1].trim()
+        }
+        if(s.contains("internalVersion")){
+            InternalVersion = s.split(":")[1].trim()
+        }
+    }
+    version = "${version}_${InternalVersion}"
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            version "${version}"
+            from(components.java)
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+
+            nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
+            snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+
+            username = sonatypeUsername
+            password = sonatypePassword
+        }
+    }
+}
+
+signing{
+    sign publishing.publications.mavenJava
+}
+
 jar{
+
+    archiveFileName = "MK-EasyShop_${version}.jar"
 
 }

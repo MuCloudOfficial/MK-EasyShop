@@ -30,27 +30,37 @@ zh_CN:
   PLUGIN_ENABLED: "&b&lMK&7&l-&6&lEasyShop &a已启动"
   PLUGIN_DISABLED: "&b&lMK&7&l-&6&lEasyShop &a已关闭"
 
-  # Vault Plugin Download Link.
+  # Vault 插件下载链接.
   # https://www.spigotmc.org/resources/vault.34315/history
   PLUGIN_HOOK_VAULT: "&a检测到 Vault"
   PLUGIN_NOT_FOUND_VAULT: "&4&l未检测到 Vault，插件必须依赖 Vault 才能工作，请访问 https://www.spigotmc.org/resources/vault.34315/history 以获取 Vault"
 
-  # PlaceholderAPI Plugin Download Link.
+  # PlaceholderAPI 插件下载链接.
   # https://www.spigotmc.org/resources/placeholderapi.6245/history
-  PLUGIN_HOOK_PLACEHOLDER: "&a检测到 PlaceHolderAPI，全局占位符替换已可用"
-  PLUGIN_NOT_FOUND_PLACEHOLDER: "&6未检测到 PlaceHolderAPI，这并不会影响插件的启动，但无法启用全局占位符替换功能，如需该功能请访问 https://www.spigotmc.org/resources/placeholderapi.6245/history 以获取 PlaceholderAPI"
+  PLUGIN_HOOK_PAPI: "&a检测到 PlaceHolderAPI，全局占位符替换已可用"
+  PLUGIN_NOT_FOUND_PAPI: "&6未检测到 PlaceHolderAPI，这并不会影响插件的启动，但无法启用全局变量功能，如需该功能请访问 https://www.spigotmc.org/resources/placeholderapi.6245/history 以获取 PlaceholderAPI"
 
   PLUGIN_FIND_UPDATE: "&a&l当前插件检测到最新版本 Ver.{newVersion}，你可以使用 /mkes updatePlugin 命令进行更新 \n新版本更新说明: "
   PLUGIN_UP_TO_DATE: "&a当前插件已是最新版本"
   PLUGIN_UPDATE_FAIL: "&6检查版本错误，你可以在本插件的开源站查询版本状态"
 
   CONFIG_VERSION_ERROR: "未检测到设置文件版本"
-  CONFIG_VERSION_INCOMPATIBLE: "检测到当前设置文件版本不在该插件兼容范围内，将使用内置的设置文件，原设置文件内容已备份"
+  CONFIG_INCOMPATIBLE: "检测到当前设置文件版本不在该插件兼容范围内，将使用内置的设置文件，原设置文件内容已备份"
   CONFIG_VALUE_CORRUPT: "设置文件项目不完整， 将使用最新版本的设置文件，原设置文件内容已备份"
 
   SHOP_REMAINING_PREFIX: "当前商店刷新剩余时间"
   SHOP_TYPE_BUY: "当前商店类型：售出"
   SHOP_TYPE_SELL: "当前商店类型：收购"
+
+  SHOP_GUI_BUY: "&6&l商店区"
+  SHOP_GUI_SELL: "&b&l收购区"
+  SHOP_GUI_SKULL_TITLE: "{player}"
+  SHOP_GUI_SKULL_LORE:
+    - "&a&l当前你的金钱数: &6&l{money}"
+  SHOP_GUI_LIST_TITLE: "&a&l请选择一个商店"
+
+  GUI_PREVIOUS: "上一页"
+  GUI_NEXT: "下一页"
 
 en_US:
   PLUGIN_ENABLING: "PLUGIN_ENABLED"

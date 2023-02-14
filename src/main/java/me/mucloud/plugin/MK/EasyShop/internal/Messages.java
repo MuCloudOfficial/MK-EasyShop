@@ -43,16 +43,26 @@ public class Messages {
     public static String PLUGIN_NOT_FOUND_VAULT;
     public static String PLUGIN_HOOK_PAPI;
     public static String PLUGIN_NOT_FOUND_PAPI;
+
+    public static String PLUGIN_FIND_UPDATE;
+    public static String PLUGIN_UP_TO_DATE;
+    public static String PLUGIN_UPDATE_FAIL;
+
     public static String CONFIG_VERSION_ERROR;
-    public static String CONFIG_CORRUPT;
+    public static String CONFIG_INCOMPATIBLE;
+    public static String CONFIG_VALUE_CORRUPT;
+
+    public static String SHOP_REMAINING_PREFIX;
+    public static String SHOP_TYPE_BUY;
+    public static String SHOP_TYPE_SELL;
 
     public static String SHOP_GUI_BUY;
     public static String SHOP_GUI_SELL;
     public static String SHOP_GUI_SKULL_TITLE;
     public static String SHOP_GUI_LIST_TITLE;
     public static List<String> SHOP_GUI_SKULL_LORE;
-
-    public static String SHOP_REMAINING_PREFIX;
+    public static String GUI_PREVIOUS;
+    public static String GUI_NEXT;
 
     public Messages() throws IOException, InvalidConfigurationException {
         LangFile = new File(Plugin.getDataFolder(), "lang.yml");
@@ -87,15 +97,26 @@ public class Messages {
         PLUGIN_HOOK_PAPI = convert(fc.getString(Locale + ".PLUGIN_HOOK_PAPI"), null, null);
         PLUGIN_NOT_FOUND_PAPI = convert(fc.getString(Locale + ".PLUGIN_NOT_FOUND_PAPI"), null, null);
 
+        PLUGIN_FIND_UPDATE = convert(fc.getString(Locale + ".PLUGIN_FIND_UPDATE"), null, null);
+        PLUGIN_UP_TO_DATE = convert(fc.getString(Locale + ".PLUGIN_UP_TO_DATE"), null, null);
+        PLUGIN_UPDATE_FAIL = convert(fc.getString(Locale + ".PLUGIN_UPDATE_FAIL"), null, null);
+
         CONFIG_VERSION_ERROR = convert(fc.getString(Locale + ".CONFIG_VERSION_ERROR"), null, null);
-        CONFIG_CORRUPT = convert(fc.getString(Locale + ".CONFIG_CORRUPT"), null, null);
+        CONFIG_VALUE_CORRUPT = convert(fc.getString(Locale + ".CONFIG_VALUE_CORRUPT"), null, null);
+        CONFIG_INCOMPATIBLE = convert(fc.getString(Locale + ".CONFIG_INCOMPATIBLE"), null, null);
+
+        SHOP_REMAINING_PREFIX = convert(fc.getString(Locale + ".SHOP_REMAINING_PREFIX"), null, null);
+        SHOP_TYPE_BUY = convert(fc.getString(Locale + ".SHOP_TYPE_BUY"), null, null);
+        SHOP_TYPE_SELL = convert(fc.getString(Locale + ".SHOP_TYPE_SELL"), null ,null);
 
         SHOP_GUI_BUY = convert(fc.getString(Locale + ".SHOP_GUI_BUY"), null, null);
         SHOP_GUI_SELL = convert(fc.getString(Locale + ".SHOP_GUI_SELL"), null, null);
         SHOP_GUI_SKULL_TITLE = convert(fc.getString(Locale + ".SHOP_GUI_SKULL_TITLE"), null, null);
         SHOP_GUI_SKULL_LORE = convert(fc.getStringList(Locale + ".SHOP_GUI_SKULL_LORE"), null);
         SHOP_GUI_LIST_TITLE = convert(fc.getString(Locale + ".SHOP_GUI_LIST_TITLE"), null, null);
-        SHOP_REMAINING_PREFIX = convert(fc.getString(Locale + ".SHOP_REMAINING_PREFIX"), null, null);
+        GUI_NEXT = convert(fc.getString(Locale + ".GUI_NEXT"), null, null);
+        GUI_PREVIOUS = convert(fc.getString(Locale + ".GUI_NEXT"), null, null);
+
     }
 
     public static List<String> convert(List<String> sl, @Nullable Map<String, String> replaceMap){

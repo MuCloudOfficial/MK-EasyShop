@@ -15,7 +15,7 @@ public interface IConfiguration{
     // About Plugin.
     String getVersion();
 
-    List<String> getAuthors();
+    String getAuthors();
 
     String getWebsite();
 

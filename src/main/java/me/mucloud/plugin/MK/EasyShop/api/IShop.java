@@ -1,17 +1,16 @@
 package me.mucloud.plugin.MK.EasyShop.api;
 
-import me.mucloud.plugin.MK.EasyShop.core.Production;
+import me.mucloud.plugin.MK.EasyShop.core.Product;
 import me.mucloud.plugin.MK.EasyShop.core.Shop;
 import me.mucloud.plugin.MK.EasyShop.core.ShopPool;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public interface IShop<T extends Production> {
-
-    String getID();
+public interface IShop<T extends Product> extends Viewable{
 
     ShopPool.ShopType getShopType();
 
@@ -29,6 +28,8 @@ public interface IShop<T extends Production> {
 
     ItemStack toIcon();
 
+    Inventory toInv(Player p); //todo
+
     void setPermission(String permission);
 
     boolean checkPermission(Player p);
@@ -43,7 +44,7 @@ public interface IShop<T extends Production> {
 
     abstract int removeProduction(T production);
 
-    IProduction getProduction(int index);
+    IProduct getProduction(int index);
 
     List<T> toList();
 

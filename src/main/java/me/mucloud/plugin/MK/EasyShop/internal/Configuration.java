@@ -19,7 +19,7 @@ public class Configuration implements IConfiguration {
     // About Plugin.
     private final Main Main;
     public static final String Prefix = "§b§lMK§7§l-§6§lEasyShop";
-    private List<String> Authors = new ArrayList<>();
+    private String Authors;
     private String Website;
     private String Version;
     private String InternalVersion;
@@ -52,8 +52,13 @@ public class Configuration implements IConfiguration {
 
     public void initialize(){
         fetchPluginInfo();
-        validateConfig();
-        fetchConfig();
+        checkIntegrity();
+        try{
+            validateConfig();
+            fetchConfig();
+        } catch (IOException | InvalidConfigurationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void fetchPluginInfo(){
@@ -62,7 +67,8 @@ public class Configuration implements IConfiguration {
             Map<String, Object> map = y.loadAs(Main.getResource("plugin.yml"), HashMap.class);
             Version = Messages.isEN() ? map.get("version").toString() : map.get("versionCN").toString();
             InternalVersion = map.get("internalVersion").toString();
-            Authors = (List<String>) map.get("authors");
+            String authorString = map.get("authors").toString();
+            Authors = authorString.toString().substring(1, authorString.length() - 1).replace(",", " ");
             Website = map.get("website").toString();
         }catch (NullPointerException npe){
             npe.printStackTrace();
@@ -78,9 +84,19 @@ public class Configuration implements IConfiguration {
         }
     }
 
-    private void validateConfig(){
-        if(!ConfigVersionCompatible.contains(Version)){
+    private void validateConfig() throws IOException, InvalidConfigurationException {
+        FileConfiguration fc = new YamlConfiguration();
+        fc.load(ConfigFile);
+        if(fc.get("General.Version") == null){
             ConsoleSender.warn(Messages.CONFIG_VERSION_ERROR);
+            ConfigFile.renameTo(
+                    new File(ConfigFolder, "config_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".yml.bak")
+            );
+            Main.saveDefaultConfig();
+        }
+        ConfigVersion = fc.getString("General.Version");
+        if(!ConfigVersionCompatible.contains(ConfigVersion)){
+            ConsoleSender.warn(Messages.CONFIG_INCOMPATIBLE);
             ConfigFile.renameTo(
                     new File(ConfigFolder, "config_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".yml.bak")
             );
@@ -88,34 +104,30 @@ public class Configuration implements IConfiguration {
         }
     }
 
-    private void fetchConfig(){
+    private void fetchConfig() throws IOException, InvalidConfigurationException {
         FileConfiguration fc = new YamlConfiguration();
-        try {
-            fc.load(ConfigFile);
-            GuiTitleName = fc.getString("General.GUITitleName");
-            MessagePrefix = fc.getString("General.Prefix");
 
-            MainAccount = fc.get("Shop.SellAccount") == null ? null : Main.getServer().getPlayer(Objects.requireNonNull(fc.getString("Shop.SellAccount")));
-            ConfigVersion = fc.getString("General.Version");
-            OnceSellEnabled = fc.getBoolean("Shop.OnceSell", false);
-        } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
-        }
+        fc.load(ConfigFile);
+        GuiTitleName = Messages.convert(fc.getString("General.GUITitleName"), null, null);
+        MessagePrefix = Messages.convert(fc.getString("General.Prefix"), null, null);
+
+        MainAccount = fc.get("Shop.SellAccount") == null ? null : Main.getServer().getPlayer(Objects.requireNonNull(fc.getString("Shop.SellAccount")));
+        OnceSellEnabled = fc.getBoolean("Shop.OnceSell", false);
     }
 
     @Override public File getConfigFolder(){
         return ConfigFolder;
     }
 
-    @Override public String getVersion(){
+    public String getVersion(){
         return Version;
     }
 
-    @Override public List<String> getAuthors() {
+    public String getAuthors() {
         return Authors;
     }
 
-    @Override public String getWebsite() {
+    public String getWebsite() {
         return Website;
     }
 

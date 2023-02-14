@@ -78,7 +78,7 @@ public class ShopRefreshTask{
         }
     }
 
-    public String getRemain(){
+    public String getRemaining(){
         long day = Remaining /60 /60 /24;
         long hour = Remaining % (60 *60 *24);
         long minute = Remaining % (60 *60);
