@@ -15,28 +15,24 @@ public class SellShopListView extends FlippableView<Shop<SellProduct>>{
         super(title, initContent, viewer);
     }
 
-    @Override
-    public void addContent(ItemStack... is) {
+    @Override public void addContent(ItemStack... is) {
 
     }
 
-    @Override
-    public void setContent(int index, ItemStack is) {
+    @Override public void setContent(int index, ItemStack is) {
 
     }
 
-    @Override
-    public List<ItemStack> getViewContent() {
+    @Override public List<ItemStack> getViewContent() {
         return null;
     }
 
-    @Override
-    public void setViewContent(List<ItemStack> content) {
+    @Override public void setViewContent(List<ItemStack> content) {
 
     }
 
-    @Override
-    public void refreshView() {
+    @Override public void refreshView() {
 
     }
+
 }
