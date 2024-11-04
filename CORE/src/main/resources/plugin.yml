@@ -1,0 +1,4 @@
+name: MK-EasyShop
+version: '3.1.0.0'
+main: me.mucloud.mcplugin.MK.EasyShop.Main
+api-version: '1.18'
