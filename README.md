@@ -15,3 +15,5 @@
 <p align="center" style="font-weight: bold">Designed by Mu_Cloud</p>
 
 ___
+
+<h3 align="center"><a href="https://mucloudofficial.github.io/MuCloudProjectDoc/mk-easyshop.html">项目WIKI</a></h3>
