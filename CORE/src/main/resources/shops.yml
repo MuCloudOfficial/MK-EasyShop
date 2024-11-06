@@ -1,0 +1,12 @@
+shops:
+  example:
+    icon: WOOL
+    type: BUY
+    name: "Example Shop"
+    lore: ["Example Shop"]
+    products:
+      example:
+        maxAmount: 30
+        amount: 2
+        price: 1.2
+        desc: [""]

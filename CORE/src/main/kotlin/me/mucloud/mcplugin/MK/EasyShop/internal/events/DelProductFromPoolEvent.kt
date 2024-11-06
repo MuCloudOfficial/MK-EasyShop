@@ -9,16 +9,16 @@ class DelProductFromPoolEvent(
     private val product: Product,
 ): Event(), Cancellable {
 
-    private var isCancelled = false
-
     fun getProduct(): Product = product
+
+    private var cancel = false
 
     override fun getHandlers(): HandlerList = HandlerList()
 
-    override fun isCancelled(): Boolean  = isCancelled
+    override fun isCancelled(): Boolean = cancel
 
-    override fun setCancelled(cancel: Boolean) {
-        isCancelled = cancel
+    override fun setCancelled(cancel: Boolean){
+        this.cancel = cancel
     }
 
 }

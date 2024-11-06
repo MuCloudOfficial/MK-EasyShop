@@ -26,6 +26,8 @@ class Shop(
         }
     }
 
+    override fun getID(): Int = id
+
     override fun addProduct(product: Product): Boolean {
         if(products.contains(product)){
             return true
@@ -57,5 +59,30 @@ class Shop(
     override fun deal(player: Player, product: Product): Boolean {
         return true
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as me.mucloud.mcplugin.MK.EasyShop.core.Shop
+
+        if (id != other.id) return false
+        if (icon != other.icon) return false
+        if (name != other.name) return false
+        if (description != other.description) return false
+        if (type != other.type) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + icon.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + description.hashCode()
+        result = 31 * result + type.hashCode()
+        return result
+    }
+
 
 }

@@ -3,6 +3,7 @@ package me.mucloud.mcplugin.MK.EasyShop.internal
 import me.mucloud.mcplugin.MK.EasyShop.internal.events.AddProductInPoolEvent
 import me.mucloud.mcplugin.api.MK.EasyShop.Product
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.jetbrains.annotations.Nullable
 
 object ProductPool {
@@ -35,6 +36,16 @@ object ProductPool {
             }
         }
         return null
+    }
+
+}
+
+object ProductPoolView{
+
+    private val inv = Bukkit.createInventory(null, 54, )
+
+    fun showView(player: Player){
+
     }
 
 }

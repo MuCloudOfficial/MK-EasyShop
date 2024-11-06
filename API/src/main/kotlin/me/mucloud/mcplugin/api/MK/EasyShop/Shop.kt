@@ -5,6 +5,8 @@ import org.bukkit.inventory.Inventory
 
 interface Shop {
 
+    fun getID(): Int
+
     fun getShopName(): String
 
     fun getShopDescription(): String
@@ -26,5 +28,9 @@ interface Shop {
     fun closeShow(){
         getOriginViewport()?.viewers?.clear()
     }
+
+    override fun equals(other: Any?): Boolean
+
+    override fun hashCode(): Int
 
 }

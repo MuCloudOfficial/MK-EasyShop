@@ -1,0 +1,7 @@
+products:
+  example:
+    material: WOOL
+    name: "Example Product"
+    lore: ["Example Product"]
+    nbt: {}
+

@@ -17,6 +17,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":API"))
     compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
@@ -26,22 +27,33 @@ kotlin {
     jvmToolchain(targetJavaVersion)
 }
 
-tasks.build {
-    dependsOn("shadowJar")
-}
+tasks{
 
-tasks.processResources {
-    val props = mapOf("version" to version)
-    inputs.properties(props)
-    filteringCharset = "UTF-8"
-    filesMatching("plugin.yml") {
-        expand(props)
+    build {
+        dependsOn("shadowJar")
     }
+
+    processResources {
+        val props = mapOf("version" to version)
+        inputs.properties(props)
+        filteringCharset = "UTF-8"
+        filesMatching("plugin.yml") {
+            expand(props)
+        }
+    }
+
+    shadowJar {
+        archiveClassifier.set("")
+        archiveBaseName.set(rootProject.name)
+        archiveVersion.set("VoidLand_V1")
+
+        dependencies{
+            include(project(":API"))
+            include(dependency("org.jetbrains.kotlin:.*"))
+        }
+        relocate("kotlin", "me.mucloud.reflibs.kotlin")
+    }
+
 }
 
-tasks.shadowJar {
-    archiveBaseName.set(rootProject.name)
-    archiveVersion.set("VoidLand_V1")
-    include("org.jetbrains.kotlin:*")
-    relocate("org.jetbrains.kotlin:*", "me.mucloud.reflibs")
-}
+

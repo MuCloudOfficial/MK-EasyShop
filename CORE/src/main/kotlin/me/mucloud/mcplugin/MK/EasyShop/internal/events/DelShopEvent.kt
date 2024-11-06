@@ -9,14 +9,14 @@ class DelShopEvent(
     val shop: Shop
 ): Event(), Cancellable{
 
-    var isCancelled = false
+    private var cancel = false
 
     override fun getHandlers(): HandlerList = HandlerList()
 
-    override fun isCancelled(): Boolean = isCancelled
+    override fun isCancelled(): Boolean = cancel
 
     override fun setCancelled(cancel: Boolean){
-        isCancelled = cancel
+        this.cancel = cancel
     }
 
 }
