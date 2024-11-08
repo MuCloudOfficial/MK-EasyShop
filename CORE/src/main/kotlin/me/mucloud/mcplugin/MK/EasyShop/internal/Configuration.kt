@@ -11,9 +11,8 @@ class Configuration(
     private val configFile: File
 
     private val type: DBType = DBType.YAML
-    private val shopViewTitle = ""
-    private val productViewTitle = ""
-    private val taxAccount = ""
+    private var shopViewTitle = ""
+    private var productViewTitle = ""
 
     init{
         folder = main.dataFolder
@@ -24,11 +23,19 @@ class Configuration(
         if(!configFile.exists()){
             main.saveResource("config.yml", true)
         }
+        instance = this
+    }
+
+    companion object{
+        lateinit var instance: Configuration
     }
 
     fun loadConfig(){
 
     }
+
+    fun getShopViewTitle(): String = shopViewTitle
+    fun getProductViewTitle(): String = productViewTitle
 
     enum class DBType{
         YAML, SQLITE, @Deprecated("尚未实现") MYSQL

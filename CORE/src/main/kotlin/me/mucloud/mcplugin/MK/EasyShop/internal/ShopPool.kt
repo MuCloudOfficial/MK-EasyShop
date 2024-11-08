@@ -1,6 +1,10 @@
 package me.mucloud.mcplugin.MK.EasyShop.internal
 
+import me.mucloud.mcplugin.MK.EasyShop.Main
 import me.mucloud.mcplugin.api.MK.EasyShop.Shop
+import org.bukkit.Bukkit
+import org.bukkit.entity.Player
+import org.bukkit.inventory.Inventory
 import org.jetbrains.annotations.Nullable
 
 object ShopPool {
@@ -47,6 +51,18 @@ object ShopPool {
 
 object ShopPoolView{
 
+    private val inv: Inventory = Bukkit.createInventory(null, 54, Main.getConfiguration().getShopViewTitle())
 
+    fun view(player: Player){
+
+    }
+
+    fun disableView(player: Player){
+
+    }
+
+    fun closeAllView(){
+
+    }
 
 }

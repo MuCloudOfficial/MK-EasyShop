@@ -1,5 +1,6 @@
 package me.mucloud.mcplugin.MK.EasyShop.internal
 
+import me.mucloud.mcplugin.MK.EasyShop.Main
 import me.mucloud.mcplugin.MK.EasyShop.internal.events.AddProductInPoolEvent
 import me.mucloud.mcplugin.api.MK.EasyShop.Product
 import org.bukkit.Bukkit
@@ -42,9 +43,17 @@ object ProductPool {
 
 object ProductPoolView{
 
-    private val inv = Bukkit.createInventory(null, 54, )
+    private val inv = Bukkit.createInventory(null, 54, Main.getConfiguration().getProductViewTitle())
 
-    fun showView(player: Player){
+    fun view(player: Player){
+
+    }
+
+    fun disableView(player: Player){
+
+    }
+
+    fun closeAllView(){
 
     }
 

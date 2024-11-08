@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":API"))
     compileOnly("org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.slf4j:slf4j-api:2.1.0-alpha1")
 }
 
 val targetJavaVersion = 17
@@ -50,8 +51,11 @@ tasks{
         dependencies{
             include(project(":API"))
             include(dependency("org.jetbrains.kotlin:.*"))
+            include(dependency("org.slf4j:.*"))
+            include(dependency("com.google.code.gson:gson:.*"))
         }
         relocate("kotlin", "me.mucloud.reflibs.kotlin")
+        relocate("org.slf4j", "me.mucloud.reflibs.slf4j")
     }
 
 }
