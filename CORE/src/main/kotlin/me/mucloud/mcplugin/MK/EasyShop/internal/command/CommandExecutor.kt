@@ -1,6 +1,7 @@
 package me.mucloud.mcplugin.MK.EasyShop.internal.command
 
 import me.mucloud.mcplugin.MK.EasyShop.Main
+import me.mucloud.mcplugin.MK.EasyShop.core.ShopType
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -15,7 +16,13 @@ object CommandExecutor: CommandExecutor {
     }
 
     private fun addShop(sender: CommandSender, args: List<String>){
-
+        val shopName = args[0]
+        val shopType = ShopType.
+        if(sender !is Player){
+            Main.getSender().sendConsoleMessage("")
+        }else{
+            Main.getSender().sendMessage(sender, "")
+        }
     }
 
     private fun test(sender: CommandSender, args: List<String>){
@@ -23,8 +30,9 @@ object CommandExecutor: CommandExecutor {
             Main.getSender().sendConsoleMessage("")
         }else{
             Main.getSender().sendMessage(sender, "Preparing Plugin Logical Test...")
-
-            Main.getSender().sendMessage(sender, "")
+            info(sender)
+            addShop(sender, listOf())
+            Main.getSender().sendMessage(sender, "Logical Test Complete.")
         }
     }
 

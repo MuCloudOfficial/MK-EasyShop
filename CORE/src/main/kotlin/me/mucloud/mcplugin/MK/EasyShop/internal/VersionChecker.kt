@@ -4,9 +4,12 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import me.mucloud.mcplugin.MK.EasyShop.Main
 import org.bukkit.ChatColor
+import org.bukkit.scheduler.BukkitTask
 import java.net.URL
 
 object VersionChecker {
+
+    private var CheckerTsk: BukkitTask? = null
 
     private val CurrentVer: Version
     private var LatestVer: Version? = null
@@ -16,21 +19,40 @@ object VersionChecker {
     private val remoteGithub = "https://api.github.com/repos/MuCloudOfficial/MK-EasyShop/releases"
 
     init {
+        enabled = Main.getConfiguration().isEnabledVersionChecker()
         val descVer = Main.getPluginDesc().version.split(".")
         CurrentVer = Version(isRel, MainVersion.get(descVer[0].toInt()), descVer[1].toInt(), descVer[2].toInt())
-        Main.createAsyncTimerTsk(0, 20 * 60 * 60 * 6) {
-            runCatching {
-                val info = URL(remoteGithub).readText()
-                JsonParser.parseString(info).asJsonArray.forEach {
-                    val target = it as JsonObject
-                    if (target["prerelease"].asBoolean == !isRel) {
-                        val sp_ver = target["tag_name"].toString().split(".")
-                        LatestVer = Version(sp_ver[0].toBoolean(), MainVersion.get(sp_ver[1]), sp_ver[2].drop(1).toInt(), sp_ver[3].toInt())
-                    }
-                }
-            }.onFailure {
-                Main.getSender().getLogger()?.warning("获取更新失败了")
+        if(enabled){
+            enableVersionCheck()
+        }
+    }
+
+    fun enableVersionCheck(){
+        if(enabled){
+            CheckerTsk = Main.createAsyncTimerTsk(0, 20 * 60 * 60 * 6) {
+                requestOnceCheck()
             }
+        }
+    }
+
+    fun requestOnceCheck(){
+        runCatching {
+            val info = URL(remoteGithub).readText()
+            JsonParser.parseString(info).asJsonArray.forEach {
+                val target = it as JsonObject
+                if (target["prerelease"].asBoolean == !isRel) {
+                    val sp_ver = target["tag_name"].toString().split(".")
+                    LatestVer = Version(sp_ver[0].toBoolean(), MainVersion.get(sp_ver[1]), sp_ver[2].drop(1).toInt(), sp_ver[3].toInt())
+                }
+            }
+        }.onFailure {
+            Main.getSender().getLogger()?.warning("获取更新失败了")
+        }
+    }
+
+    fun disableVersionChecker() {
+        if(!enabled){
+            CheckerTsk!!.cancel()
         }
     }
 

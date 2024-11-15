@@ -14,7 +14,10 @@ class Configuration(
     private var shopViewTitle = ""
     private var productViewTitle = ""
 
+    private var enableVersionChecker = false
+
     init{
+        instance = this
         folder = main.dataFolder
         configFile = folder.resolve("config.yml")
         if(!folder.exists()){
@@ -23,19 +26,20 @@ class Configuration(
         if(!configFile.exists()){
             main.saveResource("config.yml", true)
         }
-        instance = this
     }
 
     companion object{
         lateinit var instance: Configuration
+
+        fun isEnabledVersionChecker(): Boolean = instance.enableVersionChecker
+
+        fun getShopViewTitle(): String = instance.shopViewTitle
+        fun getProductViewTitle(): String = instance.productViewTitle
+
+        fun loadConfig(){
+
+        }
     }
-
-    fun loadConfig(){
-
-    }
-
-    fun getShopViewTitle(): String = shopViewTitle
-    fun getProductViewTitle(): String = productViewTitle
 
     enum class DBType{
         YAML, SQLITE, @Deprecated("尚未实现") MYSQL
